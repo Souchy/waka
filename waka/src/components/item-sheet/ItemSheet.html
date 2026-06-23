@@ -1,0 +1,23 @@
+<header class="horizontal ${rarityClass}">
+	<img src.bind="iconUrl" alt="${item.title | wakfuFormat}" />
+	<div class="vertical">
+		<div class="title">${item.title | wakfuFormat}</div>
+		<div class="horizontal">
+			<img src.bind="typeIconUrl" alt="${type.title | wakfuFormat}" />
+			<!-- <div class="type">${type.title | wakfuFormat}</div> -->
+			<div class="level">${level}</div>
+		</div>
+	</div>
+	<button click.trigger="clickDebug()">?</button>
+	<!-- <div>ID: ${id}</div> -->
+</header>
+
+<div class="equip-effects">
+	<effect class="equip-effect" repeat.for="equipEffect of item.definition.equipEffects" effect.bind="equipEffect.effect"></effect>
+</div>
+<br></br>
+<div class="use-effects">
+	<effect class="use-effect" repeat.for="useEffect of item.definition.useEffects" effect.bind="useEffect.effect"></effect>
+</div>
+
+<p>${description | wakfuFormat:1}</p>

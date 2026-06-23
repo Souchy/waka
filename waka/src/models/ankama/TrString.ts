@@ -5,3 +5,5 @@ export type TrString = {
 	es: string;
 	pt: string;
 }
+
+export type Locale = keyof TrString;

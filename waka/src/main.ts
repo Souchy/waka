@@ -9,12 +9,14 @@ import { ItemExplorer } from './views/item-explorer/ItemExplorer';
 import { ItemFilter } from './views/item-filter/ItemFilter';
 import { ItemSlot } from './components/item-slot/ItemSlot';
 import { ItemSheet } from './components/item-sheet/ItemSheet';
-import { DefaultVirtualizationConfiguration } from '@aurelia/ui-virtualization/dist/types/configuration';
+import { DefaultVirtualizationConfiguration } from '@aurelia/ui-virtualization';
 import { ModelsEnum } from './models/ankama/ModelsEnum';
 import { ActionModel } from './models/ankama/ActionModel';
 import { EquipmentItemTypeModel } from './models/ankama/EquipmentItemTypeModel';
 import { ItemTypeModel } from './models/ankama/ItemTypeModel';
 import { ItemModel } from './models/ankama/ItemModel';
+import { WakfuFormatValueConverter } from './core/WakfuFormatValueConverter';
+import { Effect } from './components/effect/Effect';
 
 async function startApp() {
 	const au = new Aurelia();
@@ -47,6 +49,7 @@ async function startApp() {
 				ns: [
 					'common',
 				],
+				preload: ['en', 'fr', 'es', 'pt'],
 				lng: lng,
 				fallbackLng: 'en',
 			};
@@ -89,23 +92,27 @@ async function startApp() {
 	// App State
 	// au.register(StateDefaultConfiguration.init(initialState, appStateHandler));
 
-  // Services
+	// Services
 	au.register(JsonService);
 	const jsonService = au.container.get(JsonService);
-  await jsonService.refreshVersion();
-  
-  void Promise.all([
-    jsonService.get<ActionModel>(ModelsEnum.actions),
-    jsonService.get<EquipmentItemTypeModel>(ModelsEnum.equipmentItemTypes),
-    jsonService.get<ItemTypeModel>(ModelsEnum.itemTypes),
-    jsonService.get<ItemModel>(ModelsEnum.items),
-    // jsonService.get<ItemPropertyModel>(ModelsEnum.itemProperties),
-    // jsonService.get<JobItemModel>(ModelsEnum.jobsItems),
-  ]);
+	await jsonService.refreshVersion();
 
-  // UI
-  au.register(ItemExplorer, ItemFilter);
-  au.register(ItemSheet, ItemSlot);
+	await Promise.all([
+		jsonService.get<ActionModel[]>(ModelsEnum.actions),
+		jsonService.get<EquipmentItemTypeModel[]>(ModelsEnum.equipmentItemTypes),
+		jsonService.get<ItemTypeModel[]>(ModelsEnum.itemTypes),
+		jsonService.get<ItemModel[]>(ModelsEnum.items),
+		// jsonService.get<ItemPropertyModel[]>(ModelsEnum.itemProperties),
+		// jsonService.get<JobItemModel[]>(ModelsEnum.jobsItems),
+	]);
+
+	// UI
+	au.register(ItemExplorer, ItemFilter);
+	au.register(ItemSheet, ItemSlot);
+	au.register(Effect);
+
+	// Converters
+	au.register(WakfuFormatValueConverter);
 
 	await au.app(MyApp).start();
 }

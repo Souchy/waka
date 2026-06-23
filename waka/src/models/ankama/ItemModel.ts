@@ -52,14 +52,14 @@ export type UseParameters = {
 };
 
 export type UseEffect = {
-	effect: Effect
+	effect: EffectModel
 };
 
 export type EquipEffect = {
-	effect: Effect
+	effect: EffectModel
 };
 
-export type Effect = {
+export type EffectModel = {
 	definition: EffectDefinition;
 }
 

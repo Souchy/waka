@@ -6,14 +6,21 @@ export default defineConfig({
   base: process.env.VITE_BASE,
   server: {
     open: false,
-    port: 9000,
+    port: 9001,
     strictPort: false,
+    proxy: {
+      '/gamedata': {
+        target: 'https://wakfu.cdn.ankama.com',
+        changeOrigin: true,
+        secure: true,
+      },
+    },
   },
   esbuild: {
     target: 'es2022'
   },
   build: {
-    
+
     // don't minify for debug builds
     minify: process.env.TAURI_ENV_DEBUG ? false : 'esbuild',
     // produce sourcemaps for debug builds

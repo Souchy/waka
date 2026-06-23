@@ -1,0 +1,9 @@
+<item-filter component.ref="itemFilter"></item-filter>
+
+<div class="items">
+	<item-sheet repeat.for="i of itemsInPage" item.bind="i"></item-sheet>
+</div>
+
+<button click.trigger="clickShowMore()">Load More</button>
+<button click.trigger="clickNextPage()">Next</button>
+<button click.trigger="clickPreviousPage()">Previous</button>

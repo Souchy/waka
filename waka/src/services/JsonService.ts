@@ -6,7 +6,8 @@ import { ConfigModel } from "../models/ankama/ConfigModel";
 @singleton()
 export class JsonService {
 	private readonly http = resolve(IHttpClient);
-	private readonly baseUrl = 'https://wakfu.cdn.ankama.com/gamedata/'; // 1.92.1.58/equipmentItemTypes.json/
+	// private readonly baseUrl = 'https://wakfu.cdn.ankama.com/gamedata/'; // 1.92.1.58/equipmentItemTypes.json/
+	private readonly baseUrl = '/gamedata/';
 
 	public cache: Map<ModelsEnum, any> = new Map<ModelsEnum, any>();
 
@@ -35,6 +36,10 @@ export class JsonService {
 		const data = await response.json() as T;
 		this.cache.set(model, data);
 		return data;
+	}
+
+	public getCached<T>(model: ModelsEnum): T | undefined {
+		return this.cache.get(model) as T | undefined;
 	}
 
 }

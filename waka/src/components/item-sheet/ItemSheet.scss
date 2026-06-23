@@ -1,0 +1,86 @@
+item-sheet {
+	display: block;
+
+	--rarity-color: hsl(0, 10%, 50%);
+
+	border-radius: 4px;
+	border: 1px solid;
+	border-color: var(--rarity-color);
+	padding: 8px;
+	margin: 8px 0;
+
+	&:hover {
+		border-color: #d021d6;
+		color: #000;
+	}
+
+	font-family: 'Gill Sans',
+	sans-serif;
+	font-size: 0.9rem;
+}
+
+
+item-sheet header {
+	display: flex;
+	flex-direction: row;
+	// justify-content: space-between;
+	align-items: center;
+
+	background: linear-gradient(to bottom, color-mix(in hsl, var(--rarity-color), transparent 70%), transparent);
+
+	img {
+		max-width: 32px;
+		max-height: 32px;
+	}
+
+	.title {
+		// font-size: 1.2rem;
+		// font-weight: bold;
+		// font-family: 'Georgia', serif;
+	}
+
+	.level {
+		padding: 0.2rem 0.2rem;
+		background-color: #494949;
+	}
+
+	.item-sheet-header-name {
+		font-weight: bold;
+	}
+}
+
+item-sheet effect:nth-of-type(2n) {
+	background: #f0f0f0 !important;
+}
+
+item-sheet effect:nth-of-type(2n+1) {
+	background: #ffffff !important;
+}
+
+item-sheet:has(.rarity-1) {
+	--rarity-color: hsl(0, 0%, 100%);
+}
+
+item-sheet:has(.rarity-2) {
+	--rarity-color: hsla(123, 100%, 50%, 0.712);
+}
+
+item-sheet:has(.rarity-3) {
+	--rarity-color: hsl(41, 100%, 50%);
+}
+
+item-sheet:has(.rarity-4) {
+	--rarity-color: hsl(61, 100%, 50%);
+}
+
+item-sheet:has(.rarity-5) {
+	--rarity-color: hsl(278, 100%, 50%);
+}
+
+item-sheet:has(.rarity-6) {
+	--rarity-color: hsl(197, 100%, 50%);
+}
+
+item-sheet:has(.rarity-7) {
+	--rarity-color: hsl(300, 100%, 50%);
+}
