@@ -21,7 +21,7 @@ export class Effect {
 		return this.json.getCached<ActionModel[]>(ModelsEnum.actions);
 	}
 
-	public get action() {
+	public get action(): ActionModel | undefined {
 		const actionId = this.effect?.definition?.actionId;
 		return this.actions?.find(a => a.definition.id === actionId);
 	}

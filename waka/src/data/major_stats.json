@@ -1,0 +1,23 @@
+[
+	{
+		"id": 31,
+		"hint": "PA",
+		"weight": 10,
+		"minimum": 12,
+		"opposite": 56
+	},
+	{
+		"id": 41,
+		"hint": "PM",
+		"weight": 10,
+		"minimum": 6,
+		"opposite": 57
+	},
+	{
+		"id": 160,
+		"hint": "Portée",
+		"weight": 10,
+		"minimum": -10,
+		"opposite": 161
+	}
+]

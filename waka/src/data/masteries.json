@@ -1,0 +1,58 @@
+[
+	{
+		"id": 120,
+		"hint": "Maîtrise Élémentaire",
+		"opposite": 130
+	},
+	{
+		"id": 1068,
+		"hint": "Maîtrise Élémentaire # elems"
+	},
+	{
+		"id": 1052,
+		"hint": "Maîtrise Mêlée",
+		"opposite": 1059
+	},
+	{
+		"id": 1053,
+		"hint": "Maîtrise Distance",
+		"opposite": 1060
+	},
+	{
+		"id": 1055,
+		"hint": "Maîtrise Berserk",
+		"opposite": 1061
+	},
+	{
+		"id": 149,
+		"hint": "Maîtrise Critique",
+		"opposite": 1056
+	},
+	{
+		"id": 180,
+		"hint": "Maîtrise Dos",
+		"opposite": 181
+	},
+
+	
+	{
+		"id": 122,
+		"hint": "Maîtrise Feu",
+		"opposite": 132
+	},
+	{
+		"id": 124,
+		"hint": "Maîtrise Eau",
+		"opposite": 0
+	},
+	{
+		"id": 123,
+		"hint": "Maîtrise Terre",
+		"opposite": 0
+	},
+	{
+		"id": 125,
+		"hint": "Maîtrise Air",
+		"opposite": 0
+	}
+]

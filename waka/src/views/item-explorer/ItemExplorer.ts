@@ -3,7 +3,13 @@ import { ItemModel } from "src/models/ankama/ItemModel";
 import { ModelsEnum } from "src/models/ankama/ModelsEnum";
 import { JsonService } from "src/services/JsonService";
 import { ItemFilter } from "../item-filter/ItemFilter";
+import { route } from "@aurelia/router";
 
+@route({
+	id: 'items',
+	path: 'items',
+	title: 'Items',
+})
 export class ItemExplorer {
 	private readonly logger = resolve(ILogger);
 	private json = resolve(JsonService);

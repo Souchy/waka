@@ -1,0 +1,29 @@
+[
+	{
+		"id": 20,
+		"hint": "PV"
+	},
+	{
+		"id": 150,
+		"hint": "% Coup critique"
+	},
+	{
+		"id": 177,
+		"hint": "Volonté"
+	},
+	{
+		"id": 175,
+		"hint": "Esquive",
+		"opposite": 176
+	},
+	{
+		"id": 173,
+		"hint": "Tacle",
+		"opposite": 174
+	},
+	{
+		"id": 171,
+		"hint": "Initiative",
+		"opposite": 172
+	}
+]

@@ -17,6 +17,9 @@ import { ItemTypeModel } from './models/ankama/ItemTypeModel';
 import { ItemModel } from './models/ankama/ItemModel';
 import { WakfuFormatValueConverter } from './core/WakfuFormatValueConverter';
 import { Effect } from './components/effect/Effect';
+import { BuildWizard } from './pages/build-wizard/BuildWizard';
+import { BuildsPage } from './pages/builds-page/BuildsPage';
+import { BuildPage } from './pages/build-page/BuildPage';
 
 async function startApp() {
 	const au = new Aurelia();
@@ -105,7 +108,12 @@ async function startApp() {
 		// jsonService.get<ItemPropertyModel[]>(ModelsEnum.itemProperties),
 		// jsonService.get<JobItemModel[]>(ModelsEnum.jobsItems),
 	]);
-
+	
+	// Routes
+	au.register(BuildWizard);
+	au.register(BuildsPage);
+	au.register(BuildPage);
+	
 	// UI
 	au.register(ItemExplorer, ItemFilter);
 	au.register(ItemSheet, ItemSlot);

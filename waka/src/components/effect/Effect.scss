@@ -1,3 +1,17 @@
 effect {
 	display: block;
+
+	.effect-id {
+		display: none;
+	}
+
+	&:hover {
+		.effect-description {
+			display: none;
+		}
+
+		.effect-id {
+			display: block;
+		}
+	}
 }

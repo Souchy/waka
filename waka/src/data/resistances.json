@@ -1,0 +1,50 @@
+[
+	{
+		"id": 80,
+		"hint": "Résistance Élémentaire",
+		"opposite": 90
+	},
+	{
+		"id": 80,
+		"hint": "Résistance Élémentaire sans cap",
+		"opposite": 100
+	},
+	{
+		"id": 1069,
+		"hint": "Résistance Élémentaire # elems"
+	},
+	{
+		"id": 988,
+		"hint": "Résistance Critique",
+		"opposite": 1062
+	},
+	{
+		"id": 71,
+		"hint": "Résistance Dos",
+		"opposite": 1063
+	},
+
+
+
+	{
+		"id": 82,
+		"hint": "Résistance Feu",
+		"opposite": 97
+	},
+	{
+		"id": 83,
+		"hint": "Résistance Eau",
+		"opposite": 98
+	},
+	{
+		"id": 84,
+		"hint": "Résistance Terre",
+		"opposite": 96
+	},
+	{
+		"id": 85,
+		"hint": "Résistance Air",
+		"opposite": 0
+	}
+
+]

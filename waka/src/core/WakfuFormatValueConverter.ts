@@ -46,6 +46,7 @@ export class WakfuFormatValueConverter {
 				if (m) {
 					// [#N] — compute base + perLevel * level for the N-th param pair
 					const val = this.evalValue(params, parseInt(m[1]) - 1, level);
+					if (val === undefined) { i = end + 1; continue; }
 					stack.value = val;
 					result += String(val);
 				}
@@ -109,17 +110,30 @@ export class WakfuFormatValueConverter {
 		if (m = cond.match(/^>(\d+)$/)) return stack >= parseInt(m[1]);                 // [>N]: stack >= N
 		if (m = cond.match(/^<(\d+)$/)) return stack <= parseInt(m[1]);                 // [<N]: stack <= N
 		if (m = cond.match(/^=(\d+)$/)) return stack === parseInt(m[1]);                // [=N]: stack == N
-		if (m = cond.match(/^(\d+)=(\d+)$/)) return this.evalValue(params, parseInt(m[2]) - 1, level) === parseInt(m[1]); // [N=M]
-		if (m = cond.match(/^(\d+)<(\d+)$/)) return this.evalValue(params, parseInt(m[2]) - 1, level) < parseInt(m[1]);   // [N<M]
-		if (m = cond.match(/^(\d+)>(\d+)$/)) return this.evalValue(params, parseInt(m[2]) - 1, level) > parseInt(m[1]);   // [N>M]
+		if (m = cond.match(/^(\d+)=(\d+)$/)) {
+			const val = this.evalValue(params, parseInt(m[2]) - 1, level);
+			if (val === undefined) return false;
+			return val == parseInt(m[1]); // [N=M]
+		}
+		if (m = cond.match(/^(\d+)<(\d+)$/)) {
+			const val = this.evalValue(params, parseInt(m[2]) - 1, level);
+			if (val === undefined) return false;
+			return val < parseInt(m[1]); // [N<M]
+		}
+		if (m = cond.match(/^(\d+)>(\d+)$/)) {
+			const val = this.evalValue(params, parseInt(m[2]) - 1, level);
+			if (val === undefined) return false;
+			return val > parseInt(m[1]); // [N>M]
+		}
 		return false;
 	}
 
 	/** Computes the value of a param pair: Math.floor(base + perLevel * level). */
-	private evalValue(params: number[], index: number, level: number): number {
+	private evalValue(params: number[], index: number, level: number): number | undefined {
 		index *= 2; // Each param is a pair (base + perLevel)
-		const base = params[index] ?? 0;
-		const perLevel = params[index + 1] ?? 0;
+		const base = params[index];
+		const perLevel = params[index + 1];
+		if (base === undefined || perLevel === undefined) return undefined;
 		return Math.floor(base + perLevel * level);
 	}
 
