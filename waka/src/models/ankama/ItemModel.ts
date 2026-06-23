@@ -61,6 +61,7 @@ export type EquipEffect = {
 
 export type EffectModel = {
 	definition: EffectDefinition;
+	description: TrString;
 }
 
 export type EffectDefinition = {

@@ -27,7 +27,7 @@ export class Effect {
 	}
 
 	public get actionDescription() {
-		return this.action?.description;
+		return this.effect.description ?? this.action?.description;
 	}
 
 	public get params() {
