@@ -1,13 +1,20 @@
 {
   "compilerOptions": {
     "module": "esnext",
-    "moduleResolution": "node",
+    "target": "ES2022",
+    "moduleResolution": "bundler",
     "skipLibCheck": true,
-    "target": "ES2017",
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "importHelpers": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "paths": {
+      "src/*": [
+        "./src/*"
+      ],
+    }
   },
   "include": [
     "src"
