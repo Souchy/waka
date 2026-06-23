@@ -1,6 +1,8 @@
 import { TrString } from "./TrString";
 
 /// https://wakfu.cdn.ankama.com/gamedata/1.92.1.58/items.json
+/// https://www.wakfu.com/fr/mmorpg/encyclopedie/ressources/1718  // bois de pommier
+/// https://static.ankama.com/wakfu/portal/game/item/115/2011718.png  // bois de pommier
 export type ItemModel = {
 	definition: ItemModelDefinition,
 	title: TrString,

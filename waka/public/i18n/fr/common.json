@@ -1,0 +1,12 @@
+{
+	"buttons": {
+		"ok": "Ok",
+		"close": "Fermer",
+		"yes": "Oui",
+		"no": "Non",
+		"save": "Enregistrer",
+		"cancel": "Annuler",
+		"edit": "Modifier",
+		"delete": "Supprimer"
+	}
+}

@@ -3,12 +3,31 @@ import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import aurelia from '@aurelia/vite-plugin';
 
 export default defineConfig({
+  base: process.env.VITE_BASE,
   server: {
-    open: !process.env.CI,
+    open: false,
     port: 9000,
+    strictPort: false,
   },
   esbuild: {
     target: 'es2022'
+  },
+  build: {
+    
+    // don't minify for debug builds
+    minify: process.env.TAURI_ENV_DEBUG ? false : 'esbuild',
+    // produce sourcemaps for debug builds
+    sourcemap: !!process.env.TAURI_ENV_DEBUG,
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      target: 'es2022',
+    },
+  },
+  resolve: {
+    alias: {
+      src: "/src",
+    },
   },
   plugins: [
     aurelia({

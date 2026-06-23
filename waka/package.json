@@ -8,23 +8,28 @@
   },
   "license": "UNLICENSED",
   "dependencies": {
+    "@aurelia/dialog": "^2.0.0-rc.1",
+    "@aurelia/i18n": "^2.0.0-rc.1",
+    "@aurelia/router": "latest",
+    "@aurelia/state": "^2.0.0-rc.1",
+    "@aurelia/ui-virtualization": "^2.0.0-rc.1",
     "aurelia": "latest",
-    "@aurelia/router": "latest"
+    "i18next-fetch-backend": "^7.0.0"
   },
   "devDependencies": {
+    "@aurelia/testing": "latest",
+    "@aurelia/vite-plugin": "latest",
+    "@types/node": "^22.10.2",
     "eslint": "^9.17.0",
     "globals": "^15.14.0",
-    "@aurelia/testing": "latest",
+    "sass": "^1.83.0",
     "stylelint": "^16.12.0",
     "stylelint-config-standard-scss": "^14.0.0",
-    "@aurelia/vite-plugin": "latest",
-    "vite": "^7.3.1",
-    "vite-plugin-node-polyfills": "^0.25.0",
-    "sass": "^1.83.0",
-    "@types/node": "^22.10.2",
-    "typescript": "^5.7.2",
     "tslib": "^2.8.1",
-    "typescript-eslint": "^8.18.1"
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.1",
+    "vite": "^7.3.1",
+    "vite-plugin-node-polyfills": "^0.25.0"
   },
   "scripts": {
     "lint:js": "eslint \"src/**/*.{js,ts}\"",
@@ -32,6 +37,7 @@
     "lint": "npm run lint:js && npm run lint:css",
     "pretest": "npm run lint",
     "start": "vite",
+    "app": "vite",
     "build": "vite build"
   },
   "type": "module"
