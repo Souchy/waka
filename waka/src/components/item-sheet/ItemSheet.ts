@@ -2,7 +2,7 @@ import { I18N } from "@aurelia/i18n";
 import { bindable, ILogger, resolve } from "aurelia";
 import { Constants } from "src/core/Constants";
 import { ItemModel } from "src/models/ankama/ItemModel";
-import { ItemTypeModel } from "src/models/ankama/ItemTypeModel";
+import { getItemTypeIconUrl, ItemTypeModel } from "src/models/ankama/ItemTypeModel";
 import { ModelsEnum } from "src/models/ankama/ModelsEnum";
 import { Locale } from "src/models/ankama/TrString";
 import { JsonService } from "src/services/JsonService";
@@ -55,7 +55,10 @@ export class ItemSheet {
 
 	public get typeIconUrl() {
 		const type = this.type;
-		return type ? `${this.constants.itemTypeIconBaseUrl}/${type.definition.id}.png` : '';
+		if (!type) {
+			return '';
+		}
+		return getItemTypeIconUrl(type);
 	}
 
 	public get iconUrl() {
@@ -66,5 +69,6 @@ export class ItemSheet {
 	public clickDebug() {
 		this.logger.debug('', this.item);
 	}
+
 
 }

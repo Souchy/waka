@@ -1,7 +1,28 @@
 
-<label class="form-label" for="minLevel">Level</label>
-<input type="number" id="minLevel" value.bind="minLevel" step="1" class="form-control form-control-sm" />
-<label class="form-label" for="maxLevel">Max Level</label>
-<input type="number" id="maxLevel" value.bind="maxLevel" step="1" class="form-control form-control-sm" />
-<label class="form-label" for="name">Name</label>
-<input type="text" id="name" value.bind="name" class="form-control form-control-sm" />
+<div repeat.for="itemType of itemTypeToggles" click.trigger="clickToggle(itemType)" toggled.class="itemType.active">
+	<img src.bind="itemType.iconUrl" />
+	<label>${itemType.item.title | wakfuFormat}</label>
+</div>
+
+
+<h3>Main Masteries</h3>
+<button repeat.for="i of toggleMainMastery" click.trigger="clickToggle(i)" toggled.class="i.active"><img src.bind="constants.characteristicIconBaseUrl  + '/' + i.iconUrl" /></button>
+<h3>Main Resistances</h3>
+<button repeat.for="i of toggleMainResistances" click.trigger="clickToggle(i)" toggled.class="i.active"><img src.bind="constants.characteristicIconBaseUrl + '/' + i.iconUrl" /></button>
+<h3>Secondary Masteries</h3>
+<button repeat.for="i of toggleSecondaryMastery" click.trigger="clickToggle(i)" toggled.class="i.active"><img src.bind="constants.characteristicIconBaseUrl + '/' + i.iconUrl" /></button>
+<h3>Secondary Resistances</h3>
+<button repeat.for="i of toggleSecondaryResistances" click.trigger="clickToggle(i)" toggled.class="i.active"><img src.bind="constants.characteristicIconBaseUrl + '/' + i.iconUrl" /></button>
+<h3>Other</h3>
+<button repeat.for="i of toggleOther" click.trigger="clickToggle(i)" toggled.class="i.active"><img src.bind="constants.characteristicIconBaseUrl + '/' + i.iconUrl" /></button>
+
+<div>
+  <h3>bla</h3>
+  <label class="form-label" for="minLevel">Level</label>
+  <input type="number" id="minLevel" value.bind="minLevel" step="1" class="form-control form-control-sm" />
+  <label class="form-label" for="maxLevel">Max Level</label>
+  <input type="number" id="maxLevel" value.bind="maxLevel" step="1" class="form-control form-control-sm" />
+  <label class="form-label" for="name">Name</label>
+  <input type="text" id="name" value.bind="name" class="form-control form-control-sm" />
+  <label class="form-label">Items found: ${itemExplorer.filteredItems.length}</label>
+</div>

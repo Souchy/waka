@@ -20,6 +20,7 @@ import { Effect } from './components/effect/Effect';
 import { BuildWizard } from './pages/build-wizard/BuildWizard';
 import { BuildsPage } from './pages/builds-page/BuildsPage';
 import { BuildPage } from './pages/build-page/BuildPage';
+import { Action } from './components/action/Action';
 
 async function startApp() {
 	const au = new Aurelia();
@@ -117,7 +118,7 @@ async function startApp() {
 	// UI
 	au.register(ItemExplorer, ItemFilter);
 	au.register(ItemSheet, ItemSlot);
-	au.register(Effect);
+	au.register(Effect, Action);
 
 	// Converters
 	au.register(WakfuFormatValueConverter);

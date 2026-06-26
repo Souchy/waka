@@ -1,6 +1,7 @@
 import { I18N } from "@aurelia/i18n";
 import { ILogger, resolve } from "aurelia";
 import { Locale, TrString } from "src/models/ankama/TrString";
+import { Constants } from "./Constants";
 
 export class WakfuFormatOptions {
 	level?: number;
@@ -10,6 +11,7 @@ export class WakfuFormatOptions {
 export class WakfuFormatValueConverter {
 	private readonly i18n = resolve(I18N);
 	private readonly logger = resolve(ILogger).scopeTo("WakfuFormatValueConverter");
+	private readonly constants = resolve(Constants);
 
 	/**
 	 * @param value - The raw Ankama translation string
@@ -40,15 +42,26 @@ export class WakfuFormatValueConverter {
 		while (i < text.length) {
 			if (text[i] === '[') {
 				const end = text.indexOf(']', i);
-				if (end === -1) { result += text[i++]; continue; }
+				if (end === -1) {
+					result += text[i++];
+					continue;
+				}
 				const token = text.slice(i + 1, end);
 				const m = token.match(/^#(\d+)$/);
 				if (m) {
 					// [#N] — compute base + perLevel * level for the N-th param pair
 					const val = this.evalValue(params, parseInt(m[1]) - 1, level);
-					if (val === undefined) { i = end + 1; continue; }
+					if (val === undefined) {
+						i = end + 1;
+						continue;
+					}
 					stack.value = val;
 					result += String(val);
+				}
+				if(token.startsWith("#charac ")) {
+					const characName = token.slice(8);
+					result += `<img src="${this.constants.characteristicIconBaseUrl}/${characName}.png" />`;
+					// result += `[${characName}]`;
 				}
 				// Unknown tags like [el6], [ecnbi], [#charac ...] are stripped
 				i = end + 1;
@@ -63,7 +76,7 @@ export class WakfuFormatValueConverter {
 		}
 		return result;
 	}
-
+	
 	/** Finds the index of the closing } that matches the { at openIdx. */
 	private findMatchingBrace(text: string, openIdx: number): number {
 		let depth = 0;

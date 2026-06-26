@@ -55,8 +55,7 @@ export class ItemExplorer {
 		const startIndex = (page - 1) * this.itemsPerPage;
 		const endIndex = startIndex + this.itemsPerPage;
 		this.itemsInPage = this.filteredItems.slice(startIndex, endIndex);
-		this.logger.debug(`Page changed to ${page}. 
-			Showing items ${startIndex + 1} to ${Math.min(endIndex, this.filteredItems.length)} of ${this.filteredItems.length}.`);
+		// this.logger.debug(`Page changed to ${page}. Showing items ${startIndex + 1} to ${Math.min(endIndex, this.filteredItems.length)} of ${this.filteredItems.length}.`);
 		// this.logger.debug("Items in current page:", this.itemsInPage);
 	}
 

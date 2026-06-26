@@ -6,7 +6,10 @@ import { TrString } from "./TrString";
 export type ItemModel = {
 	definition: ItemModelDefinition,
 	title: TrString,
-	description: TrString
+	description: TrString,
+	customAdditionalInfo?: {
+		weight: number,
+	}
 };
 
 export type ItemModelDefinition = {

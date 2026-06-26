@@ -3,9 +3,10 @@
 	<div class="vertical">
 		<div class="title">${item.title | wakfuFormat}</div>
 		<div class="horizontal">
-			<img src.bind="typeIconUrl" alt="${type.title | wakfuFormat}" />
+			<img src.bind="typeIconUrl" title="${type.title | wakfuFormat}" />
 			<!-- <div class="type">${type.title | wakfuFormat}</div> -->
 			<div class="level">${level}</div>
+			<div class="level">${item.customAdditionalInfo ? item.customAdditionalInfo.weight : 0}</div>
 		</div>
 	</div>
 	<button click.trigger="clickDebug()">?</button>
@@ -20,4 +21,4 @@
 	<effect class="use-effect" repeat.for="useEffect of item.definition.useEffects" effect.bind="useEffect.effect"></effect>
 </div>
 
-<p>${description | wakfuFormat:1}</p>
+<!-- <p>${description | wakfuFormat}</p> -->

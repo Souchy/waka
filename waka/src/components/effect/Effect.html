@@ -1,2 +1,2 @@
-<div class="effect-description" name="${action?.definition?.id}">${actionDescription | wakfuFormat:{level: level, params: params}}</div>
+<action class="effect-description" actionid.bind="action?.definition?.id" description.bind="actionDescription" level.bind="level" params.bind="params"></action>
 <div class="effect-id">${action?.definition?.id}</div>

@@ -3,12 +3,104 @@ import { ItemExplorer } from "../item-explorer/ItemExplorer";
 import { ILogger, resolve, watch } from "aurelia";
 import { JsonService } from "src/services/JsonService";
 import { I18N } from "@aurelia/i18n";
-import { Locale } from "src/models/ankama/TrString";
+import { Locale, TrString } from "src/models/ankama/TrString";
+import { Constants } from "src/core/Constants";
+import { otherStats } from "src/data/stats/other";
+import { secondaryResistances } from "src/data/stats/secondary_resistances";
+import { secondaryMasteries } from "src/data/stats/secondary_masteries";
+import { mainResistances } from "src/data/stats/main_resistances";
+import { mainMasteries } from "src/data/stats/main_masteries";
+import { getItemTypeIconUrl, ItemTypeModel } from "src/models/ankama/ItemTypeModel";
+import { ModelsEnum } from "src/models/ankama/ModelsEnum";
+import { EquipmentItemTypeModel } from "src/models/ankama/EquipmentItemTypeModel";
+
+// export type StatToggle = {
+// 	stat: Stat;
+// 	active: boolean;
+// }
+
+export interface Stat {
+	id: number;
+	opposite: number;
+	name?: string;
+	iconUrl: string;
+}
+
+export class StatToggle implements Stat {
+	public active: boolean = false;
+	constructor(public readonly stat: Stat) {
+	}
+
+	public get id(): number {
+		return this.stat.id;
+	}
+
+	public get opposite(): number {
+		return this.stat.opposite;
+	}
+
+	public get name(): string | undefined {
+		return this.stat.name;
+	}
+
+	public get iconUrl(): string {
+		return this.stat.iconUrl;
+	}
+}
+
+export class ItemToggle {
+	public active: boolean = false;
+	constructor(public readonly item: ItemTypeModel) { }
+	public get id(): number {
+		return this.item.definition.id;
+	}
+	public get name(): TrString {
+		return this.item.title; // [this.locale];
+	}
+	// public get locale(): Locale {
+	// 	const i18n = resolve(I18N);
+	// 	return i18n.getLocale() as Locale;
+	// }
+
+	public get iconUrl(): string {
+		return getItemTypeIconUrl(this.item);
+	}
+
+}
 
 export class ItemFilter {
 	private readonly logger = resolve(ILogger).scopeTo("ItemFilter");
 	private readonly i18n = resolve(I18N);
 	private readonly json = resolve(JsonService);
+	private readonly constants = resolve(Constants);
+
+	private itemTypeToggles: ItemToggle[] = this.json.getCached<ItemTypeModel[]>(ModelsEnum.itemTypes)?.filter(item => item.definition.equipmentPositions.length > 0).map(item => new ItemToggle(item)) || [];
+
+	public toggleMainMastery = mainMasteries.map(m => new StatToggle(m));
+	public toggleMainResistances = mainResistances.map(r => new StatToggle(r));
+	public toggleSecondaryMastery = secondaryMasteries.map(m => new StatToggle(m));
+	public toggleSecondaryResistances = secondaryResistances.map(r => new StatToggle(r));
+	public toggleOther = otherStats.map(o => new StatToggle(o));
+
+	private allToggles: StatToggle[] = [...this.toggleMainMastery, ...this.toggleMainResistances, ...this.toggleSecondaryMastery, ...this.toggleSecondaryResistances, ...this.toggleOther];
+
+	private readonly sortByLevelThenId = (a: ItemModel, b: ItemModel) => {
+		// Sort by level first, then by name
+		if (a.definition.item.level !== b.definition.item.level) {
+			return b.definition.item.level - a.definition.item.level;
+		}
+		return b.definition.item.id - a.definition.item.id;
+	};
+	private readonly sortByWeightThenLevelThenId = (a: ItemModel, b: ItemModel) => {
+		// Sort by weight first, then by level, then by name
+		const weightA = a.customAdditionalInfo?.weight ?? 0;
+		const weightB = b.customAdditionalInfo?.weight ?? 0;
+		if (weightA !== weightB) {
+			return weightB - weightA;
+		}
+
+		return this.sortByLevelThenId(a, b);
+	};
 
 	// Ref
 	public itemExplorer!: ItemExplorer;
@@ -18,9 +110,11 @@ export class ItemFilter {
 	public allowedTypes: number[] = [];
 	public disallowedTypes: number[] = [];
 
-	public minLevel: number = 1;
-	public maxLevel: number = 245;
+	public minLevel: number = 169;
+	public maxLevel: number = 170;
 	public name: string = "";
+
+	public sortFunction = this.sortByWeightThenLevelThenId;
 
 	public async attached() {
 		// let itemTypes = await this.json.get<ItemTypeModel[]>(ModelsEnum.itemTypes);
@@ -44,27 +138,69 @@ export class ItemFilter {
 		return this.i18n.getLocale() as Locale;
 	}
 
-	public filterItems(items: ItemModel[]): ItemModel[] {
-		items = items.filter(item => {
-			// Filter by allowed types
-			// if (this.allowedTypes.length > 0 && !this.allowedTypes.includes(item.definition.item.typeId)) {
-			// 	return false;
-			// }
+	public clickToggle(toggle: StatToggle) {
+		toggle.active = !toggle.active;
+		this.onChange();
+	}
 
+	public filterItems(items: ItemModel[]): ItemModel[] {
+		let anyTypeToggleActive = this.itemTypeToggles.some(toggle => toggle.active);
+
+		items = items.filter(item => {
+			// Filter types
+			if (anyTypeToggleActive) {
+				if (!this.itemTypeToggles.some(toggle => toggle.active && toggle.id === item.definition.item.baseParameters.itemTypeId)) {
+					return false;
+				}
+			}
+
+			// Level
 			if (item.definition.item.level < (this.minLevel)) {
 				return false;
 			}
 			if (item.definition.item.level > (this.maxLevel)) {
 				return false;
 			}
+			// Name
 			if (item.title[this.locale].toLowerCase().indexOf(this.name.toLowerCase()) === -1) {
 				return false;
 			}
 
+			// calculate Weight
+			if (!item.customAdditionalInfo) {
+				item.customAdditionalInfo = { weight: 0 };
+			}
+			item.customAdditionalInfo.weight = this.calculateWeight(item);
+
 			return true;
-		});
+		})
+			.sort(this.sortFunction);
 
 		return items;
+	}
+
+	private calculateWeight(item: ItemModel): number {
+		let weight = 0;
+		for (const toggle of this.allToggles) {
+			if (!toggle.active) continue;
+			item.definition.equipEffects.forEach(effect => {
+				if (effect.effect.definition.actionId === toggle.id) {
+					weight += effect.effect.definition.params[0] || 1;
+				}
+				if (effect.effect.definition.actionId === toggle.opposite) {
+					weight -= effect.effect.definition.params[0] || 1;
+				}
+			});
+			item.definition.useEffects.forEach(effect => {
+				if (effect.effect.definition.actionId === toggle.id) {
+					weight += effect.effect.definition.params[0] || 1;
+				}
+				if (effect.effect.definition.actionId === toggle.opposite) {
+					weight -= effect.effect.definition.params[0] || 1;
+				}
+			});
+		}
+		return weight;
 	}
 
 }

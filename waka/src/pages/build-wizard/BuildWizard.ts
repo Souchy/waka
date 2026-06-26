@@ -21,13 +21,26 @@ export class BuildWizard {
 		return this.json.getCached<ActionModel[]>(ModelsEnum.actions);
 	}
 
-	public minimumElementsCount: number = 0;
-	// Sum chosen elements + chosen secondaries
-	public maitrise1: StatParameter = new StatParameter();
-	public maitrise2: StatParameter = new StatParameter();
-	public maitrise3: StatParameter = new StatParameter();
-	public maitrise4: StatParameter = new StatParameter();
 
+	// Toggle elemental masteries
+	public toggleFireMastery = false;
+	public toggleWaterMastery = false;
+	public toggleEarthMastery = false;
+	public toggleAirMastery = false;
+	// Toggle secondary masteries
+	public toggleMeleeMastery = false;
+	public toggleRangedMastery = false;
+	public toggleBerserkMastery = false;
+	public toggleCriticalMastery = false;
+	
+
+
+	// public minimumElementsCount: number = 0;
+	// // Sum chosen elements + chosen secondaries
+	// public maitrise1: StatParameter = new StatParameter();
+	// public maitrise2: StatParameter = new StatParameter();
+	// public maitrise3: StatParameter = new StatParameter();
+	// public maitrise4: StatParameter = new StatParameter();
 
 
 	public major_stats: Map<number, StatParameter> = new Map<number, StatParameter>();
