@@ -7,11 +7,11 @@
 
 <h3>Main Masteries</h3>
 <button class="toggle-btn" repeat.for="i of toggleMainMastery" click.trigger="clickToggle(i)" toggled.class="i.active"><img src.bind="constants.characteristicIconBaseUrl  + '/' + i.iconUrl" /></button>
+<!-- <h3>Secondary Masteries</h3> -->
+<button class="toggle-btn" repeat.for="i of toggleSecondaryMastery" click.trigger="clickToggle(i)" toggled.class="i.active"><img src.bind="constants.characteristicIconBaseUrl + '/' + i.iconUrl" /></button>
 <h3>Main Resistances</h3>
 <button class="toggle-btn" repeat.for="i of toggleMainResistances" click.trigger="clickToggle(i)" toggled.class="i.active"><img src.bind="constants.characteristicIconBaseUrl + '/' + i.iconUrl" /></button>
-<h3>Secondary Masteries</h3>
-<button class="toggle-btn" repeat.for="i of toggleSecondaryMastery" click.trigger="clickToggle(i)" toggled.class="i.active"><img src.bind="constants.characteristicIconBaseUrl + '/' + i.iconUrl" /></button>
-<h3>Secondary Resistances</h3>
+<!-- <h3>Secondary Resistances</h3> -->
 <button class="toggle-btn" repeat.for="i of toggleSecondaryResistances" click.trigger="clickToggle(i)" toggled.class="i.active"><img src.bind="constants.characteristicIconBaseUrl + '/' + i.iconUrl" /></button>
 <h3>Other</h3>
 <button class="toggle-btn" repeat.for="i of toggleOther" click.trigger="clickToggle(i)" toggled.class="i.active"><img src.bind="constants.characteristicIconBaseUrl + '/' + i.iconUrl" /></button>

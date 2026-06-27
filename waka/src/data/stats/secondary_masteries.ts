@@ -30,5 +30,11 @@ export const secondaryMasteries: Stat[] = [
 		opposite: 181,
 		name: "Maîtrise Dos",
 		iconUrl: "BACKSTAB_BONUS.png"
+	},
+	{
+		id: 26,
+		opposite: 0,
+		name: "Maîtrise Soin",
+		iconUrl: "HEAL_IN_PERCENT.png"
 	}
 ];

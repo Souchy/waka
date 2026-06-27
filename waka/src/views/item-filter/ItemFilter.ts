@@ -1,4 +1,4 @@
-import { ItemModel } from "src/models/ankama/ItemModel";
+import { EffectModel, ItemModel } from "src/models/ankama/ItemModel";
 import { ItemExplorer } from "../item-explorer/ItemExplorer";
 import { ILogger, resolve, watch } from "aurelia";
 import { JsonService } from "src/services/JsonService";
@@ -117,8 +117,6 @@ export class ItemFilter {
 	public sortFunction = this.sortByWeightThenLevelThenId;
 
 	public async attached() {
-		// let itemTypes = await this.json.get<ItemTypeModel[]>(ModelsEnum.itemTypes);
-		// this.logger.debug("Fetched item types:", itemTypes);
 	}
 
 	@watch(vm => vm.itemExplorer?.allItems) // can be null at initialization
@@ -173,32 +171,45 @@ export class ItemFilter {
 			item.customAdditionalInfo.weight = this.calculateWeight(item);
 
 			return true;
-		})
-			.sort(this.sortFunction);
+		});
+
+		items = items.sort(this.sortFunction);
 
 		return items;
 	}
 
-	private calculateWeight(item: ItemModel): number {
+	private isEffectDescriptionContains(effect: EffectModel, text: string): boolean {
+		return effect.description?.fr.includes(text);
+	}
+
+	public calculateWeight(item: ItemModel): number {
 		let weight = 0;
 		for (const toggle of this.allToggles) {
 			if (!toggle.active) continue;
 			item.definition.equipEffects.forEach(effect => {
+				const value = effect.effect.definition.params[0] || 1;
 				if (effect.effect.definition.actionId === toggle.id) {
-					weight += effect.effect.definition.params[0] || 1;
+					if (toggle.id === 39) {
+						if (this.isEffectDescriptionContains(effect.effect, toggle.name || "")) {
+							weight += value;
+						}
+					} else {
+						weight += value;
+					}
 				}
 				if (effect.effect.definition.actionId === toggle.opposite) {
-					weight -= effect.effect.definition.params[0] || 1;
+					weight -= value;
 				}
 			});
-			item.definition.useEffects.forEach(effect => {
-				if (effect.effect.definition.actionId === toggle.id) {
-					weight += effect.effect.definition.params[0] || 1;
-				}
-				if (effect.effect.definition.actionId === toggle.opposite) {
-					weight -= effect.effect.definition.params[0] || 1;
-				}
-			});
+			// item.definition.useEffects.forEach(effect => {
+			// 	const value = effect.effect.definition.params[0] || 1;
+			// 	if (effect.effect.definition.actionId === toggle.id) {
+			// 		weight += value;
+			// 	}
+			// 	if (effect.effect.definition.actionId === toggle.opposite) {
+			// 		weight -= value;
+			// 	}
+			// });
 		}
 		return weight;
 	}

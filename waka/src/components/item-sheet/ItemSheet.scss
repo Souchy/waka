@@ -1,6 +1,9 @@
 item-sheet {
 	display: block;
 
+	z-index: 10;
+	background: rgb(46, 46, 46);
+
 	--rarity-color: hsl(0, 10%, 50%);
 
 	border-radius: 4px;

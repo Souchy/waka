@@ -14,7 +14,7 @@ export class ItemSheet {
 	public readonly constants = resolve(Constants);
 
 	@bindable
-	public item!: ItemModel;
+	public item: ItemModel | null = null;
 
 	public attached() {
 		// if(this.id === 2027) {
@@ -27,29 +27,29 @@ export class ItemSheet {
 	}
 
 	public get id() {
-		return this.item.definition.item.id;
+		return this.item?.definition.item.id;
 	}
 
 	public get title() {
-		return this.item.title;
+		return this.item?.title;
 	}
 
 	public get description() {
-		return this.item.description;
+		return this.item?.description;
 	}
 
 	public get level() {
-		return this.item.definition.item.level;
+		return this.item?.definition.item.level;
 	}
 
 	public get rarityClass() {
-		const rarity = this.item.definition.item.baseParameters.rarity;
+		const rarity = this.item?.definition.item.baseParameters.rarity;
 		return `rarity-${rarity}`;
 	}
 
 	public get type(): ItemTypeModel | undefined {
 		const itemTypes = this.json.getCached<ItemTypeModel[]>(ModelsEnum.itemTypes);
-		const typeId = this.item.definition.item.baseParameters.itemTypeId;
+		const typeId = this.item?.definition.item.baseParameters.itemTypeId;
 		return itemTypes?.find(t => t.definition.id === typeId);
 	}
 

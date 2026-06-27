@@ -115,13 +115,14 @@ async function startApp() {
 	au.register(BuildsPage);
 	au.register(BuildPage);
 	
+	// Converters
+	au.register(WakfuFormatValueConverter);
+	
 	// UI
 	au.register(ItemExplorer, ItemFilter);
 	au.register(ItemSheet, ItemSlot);
 	au.register(Effect, Action);
 
-	// Converters
-	au.register(WakfuFormatValueConverter);
 
 	await au.app(MyApp).start();
 }

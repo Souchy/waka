@@ -1,39 +1,50 @@
 <h1>BuildWizard</h1>
 
-<button click.trigger="clickGenerate()">Generate</button>
+<div class="horizontal">
+  <button click.trigger="clickGenerate()">Generate</button>
+  <div class="horizontal">
+    <item-slot repeat.for="entry of itemSlots" item.bind="entry[1]"></item-slot>
+  </div>
+</div>
 
-<h3>Major stats</h3>
-<stat-table vm.bind="this" stats.bind="major_stats_list"></stat-table>
-<h3>Other stats</h3>
-<stat-table vm.bind="this" stats.bind="other_stats_list"></stat-table>
-
-<h3>Masteries</h3>
-<stat-table vm.bind="this" stats.bind="masteries_list"></stat-table>
-<h3>Resistances</h3>
-<stat-table vm.bind="this" stats.bind="resistances_list"></stat-table>
+<div class="horizontal">
+  <div>
+    <h3>Major stats</h3>
+    <stat-table vm.bind="this" stats.bind="major_stats_list"></stat-table>
+    <h3>Masteries</h3>
+    <stat-table vm.bind="this" stats.bind="masteries_list"></stat-table>
+    <h3>Resistances</h3>
+    <stat-table vm.bind="this" stats.bind="resistances_list"></stat-table>
+  </div>
+  <div>
+    <!-- stats panel? -->
+  </div>
+</div>
 
 
 <template as-custom-element="stat-table">
-	<bindable name="vm"></bindable>
-	<bindable name="stats"></bindable>
-	<table>
-		<thead>
-			<tr>
-				<th>Stat ID</th>
-				<th>Weight</th>
-				<th>Minimum</th>
-				<th>Maximum</th>
-				<th>Value</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr repeat.for="stat of stats" name="${stat.id}">
-				<td><action description.bind="vm.getAction(stat.id).description" actionid.bind="stat.id"></action></td>
-				<td><input type="number" title="Weight" value.bind="stat.weight" /></td>
-				<td><input type="number" title="Minimum" value.bind="stat.minimum" /></td>
-				<td><input type="number" title="Maximum" value.bind="stat.maximum" /></td>
-				<td><input type="number" title="Value" value.bind="stat.value" /></td>
-			</tr>
-		</tbody>
-	</table>
+  <bindable name="vm"></bindable>
+  <bindable name="stats"></bindable>
+  <table>
+    <thead>
+      <tr>
+        <th>Stat ID</th>
+        <th>Weight</th>
+        <th>Minimum</th>
+        <th>Maximum</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr repeat.for="stat of stats" name="${stat.id}">
+        <td>
+          <action description.bind="vm.getAction(stat.id).description" actionid.bind="stat.id"></action>
+        </td>
+        <td><input type="number" title="Weight" value.bind="stat.weight" /></td>
+        <td><input type="number" title="Minimum" value.bind="stat.minimum" /></td>
+        <td><input type="number" title="Maximum" value.bind="stat.maximum" /></td>
+        <td><input type="number" title="Value" value.bind="stat.value" /></td>
+      </tr>
+    </tbody>
+  </table>
 </template>
