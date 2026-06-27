@@ -1,20 +1,20 @@
-
-<div repeat.for="itemType of itemTypeToggles" click.trigger="clickToggle(itemType)" toggled.class="itemType.active">
-	<img src.bind="itemType.iconUrl" />
-	<label>${itemType.item.title | wakfuFormat}</label>
+<div class="item-types">
+  <button class="toggle-btn" repeat.for="itemType of itemTypeToggles" click.trigger="clickToggle(itemType)" toggled.class="itemType.active">
+    <img src.bind="itemType.iconUrl" />
+    <!-- <label>${itemType.item.title | wakfuFormat}</label> -->
+  </button>
 </div>
 
-
 <h3>Main Masteries</h3>
-<button repeat.for="i of toggleMainMastery" click.trigger="clickToggle(i)" toggled.class="i.active"><img src.bind="constants.characteristicIconBaseUrl  + '/' + i.iconUrl" /></button>
+<button class="toggle-btn" repeat.for="i of toggleMainMastery" click.trigger="clickToggle(i)" toggled.class="i.active"><img src.bind="constants.characteristicIconBaseUrl  + '/' + i.iconUrl" /></button>
 <h3>Main Resistances</h3>
-<button repeat.for="i of toggleMainResistances" click.trigger="clickToggle(i)" toggled.class="i.active"><img src.bind="constants.characteristicIconBaseUrl + '/' + i.iconUrl" /></button>
+<button class="toggle-btn" repeat.for="i of toggleMainResistances" click.trigger="clickToggle(i)" toggled.class="i.active"><img src.bind="constants.characteristicIconBaseUrl + '/' + i.iconUrl" /></button>
 <h3>Secondary Masteries</h3>
-<button repeat.for="i of toggleSecondaryMastery" click.trigger="clickToggle(i)" toggled.class="i.active"><img src.bind="constants.characteristicIconBaseUrl + '/' + i.iconUrl" /></button>
+<button class="toggle-btn" repeat.for="i of toggleSecondaryMastery" click.trigger="clickToggle(i)" toggled.class="i.active"><img src.bind="constants.characteristicIconBaseUrl + '/' + i.iconUrl" /></button>
 <h3>Secondary Resistances</h3>
-<button repeat.for="i of toggleSecondaryResistances" click.trigger="clickToggle(i)" toggled.class="i.active"><img src.bind="constants.characteristicIconBaseUrl + '/' + i.iconUrl" /></button>
+<button class="toggle-btn" repeat.for="i of toggleSecondaryResistances" click.trigger="clickToggle(i)" toggled.class="i.active"><img src.bind="constants.characteristicIconBaseUrl + '/' + i.iconUrl" /></button>
 <h3>Other</h3>
-<button repeat.for="i of toggleOther" click.trigger="clickToggle(i)" toggled.class="i.active"><img src.bind="constants.characteristicIconBaseUrl + '/' + i.iconUrl" /></button>
+<button class="toggle-btn" repeat.for="i of toggleOther" click.trigger="clickToggle(i)" toggled.class="i.active"><img src.bind="constants.characteristicIconBaseUrl + '/' + i.iconUrl" /></button>
 
 <div>
   <h3>bla</h3>
