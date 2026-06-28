@@ -59,30 +59,34 @@ item-sheet effect:nth-of-type(2n+1) {
 	background: #ffffff !important;
 }
 
-item-sheet:has(.rarity-1) {
-	--rarity-color: hsl(0, 0%, 100%);
-}
+item-sheet,
+item-slot {
+	&:has(.rarity-1) {
+		--rarity-color: hsl(0, 0%, 100%);
+	}
 
-item-sheet:has(.rarity-2) {
-	--rarity-color: hsla(123, 100%, 50%, 0.712);
-}
+	&:has(.rarity-2) {
+		--rarity-color: hsla(123, 100%, 50%, 0.712);
+	}
 
-item-sheet:has(.rarity-3) {
-	--rarity-color: hsl(41, 100%, 50%);
-}
+	&:has(.rarity-3) {
+		--rarity-color: hsl(41, 100%, 50%);
+	}
 
-item-sheet:has(.rarity-4) {
-	--rarity-color: hsl(61, 100%, 50%);
-}
+	&:has(.rarity-4) {
+		--rarity-color: hsl(61, 100%, 50%);
+	}
 
-item-sheet:has(.rarity-5) {
-	--rarity-color: hsl(278, 100%, 50%);
-}
+	&:has(.rarity-5) {
+		--rarity-color: hsl(278, 100%, 50%);
+	}
 
-item-sheet:has(.rarity-6) {
-	--rarity-color: hsl(197, 100%, 50%);
-}
+	&:has(.rarity-6) {
+		--rarity-color: hsl(197, 100%, 50%);
+	}
 
-item-sheet:has(.rarity-7) {
-	--rarity-color: hsl(300, 100%, 50%);
+	&:has(.rarity-7) {
+		--rarity-color: hsl(300, 100%, 50%);
+	}
+
 }

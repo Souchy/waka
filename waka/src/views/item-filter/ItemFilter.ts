@@ -187,19 +187,31 @@ export class ItemFilter {
 		for (const toggle of this.allToggles) {
 			if (!toggle.active) continue;
 			item.definition.equipEffects.forEach(effect => {
-				const value = effect.effect.definition.params[0] || 1;
+				let value = effect.effect.definition.params[0] || 1;
+				let multiplier = effect.effect.definition.params[2] || 1;
+				let vector = 0;
+
 				if (effect.effect.definition.actionId === toggle.id) {
 					if (toggle.id === 39) {
 						if (this.isEffectDescriptionContains(effect.effect, toggle.name || "")) {
-							weight += value;
+							vector = 1;
 						}
 					} else {
-						weight += value;
+						vector = 1;
 					}
 				}
 				if (effect.effect.definition.actionId === toggle.opposite) {
-					weight -= value;
+					vector = -1;
 				}
+				if (effect.effect.definition.actionId === 80) {
+					multiplier = 4;
+				}
+				// maybe do that for all effects?
+				if (effect.effect.definition.actionId === 1069) {
+					// multiplier *= effect.effect.definition.params[2] || 1;
+				}
+
+				weight += value * multiplier * vector; // * toggle.weight;
 			});
 			// item.definition.useEffects.forEach(effect => {
 			// 	const value = effect.effect.definition.params[0] || 1;

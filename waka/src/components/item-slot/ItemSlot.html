@@ -1,6 +1,6 @@
 
-<div class="slot">
-	<img src.bind="iconUrl" />
+<div class="slot ${rarityClass}">
+	<img if.bind="item" src.bind="iconUrl" />
 </div>
 
 <item-sheet if.bind="item" item.bind="item"></item-sheet>

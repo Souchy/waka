@@ -12,4 +12,9 @@ export class ItemSlot {
 		return gfxId ? `${Constants.itemIconBaseUrl}/${gfxId}.png` : '';
 	}
 
+	public get rarityClass() {
+		const rarity = this.item?.definition.item.baseParameters.rarity;
+		return `rarity-${rarity}`;
+	}
+
 }

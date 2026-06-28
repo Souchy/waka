@@ -3,6 +3,7 @@ item-slot {
 
 	background: rgb(46, 46, 46);
 	border: 1px solid rgb(36, 36, 36);
+	border-color: var(--rarity-color);
 	border-radius: 0.5rem;
 	width: 3rem;
 	aspect-ratio: 1 / 1;
@@ -13,7 +14,6 @@ item-slot {
 			height: 100%;
 			object-fit: contain;
 		}
-
 	}
 
 	&:hover {

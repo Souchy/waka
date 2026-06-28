@@ -105,6 +105,11 @@ export class BuildWizard {
 		let items = this.allItems?.filter(item => {
 			if (item.definition.item.level > 170) return false;
 			if (item.definition.item.level < 166) return false;
+
+			let weight = this.calculateWeight(item);
+			item.customAdditionalInfo = { weight: weight };
+			if (weight <= 0) return false; //continue;
+
 			return true;
 		});
 
@@ -112,9 +117,6 @@ export class BuildWizard {
 		let relicItems = [];
 
 		for (const item of items || []) {
-			let weight = this.calculateWeight(item);
-			item.customAdditionalInfo = { weight: weight };
-			if (weight <= 0) continue;
 			if (item.definition.item.baseParameters.rarity == 5) {
 				epicItems.push(item);
 				continue;
@@ -125,13 +127,22 @@ export class BuildWizard {
 			}
 
 			let type = this.itemTypes?.find(t => t.definition.id === item.definition.item.baseParameters.itemTypeId);
+			let weight = item.customAdditionalInfo?.weight || 0;
 
+			let goodPosition = null;
 			for (const position of type?.definition.equipmentPositions || []) {
 				const posEnum = position as ItemSlotEnum;
 				let currentItem = this.itemSlots.get(posEnum);
-				if (!currentItem || weight > (currentItem.customAdditionalInfo?.weight || 0)) {
-					this.itemSlots.set(posEnum, item);
+				let currentWeight = currentItem?.customAdditionalInfo?.weight || 0;
+				if (!currentItem || weight > currentWeight) {
+					goodPosition = posEnum;
 				}
+				if(currentItem?.definition.item.id === item.definition.item.id) {
+					goodPosition = null;
+				}
+			}
+			if(goodPosition) {
+				this.itemSlots.set(goodPosition, item);
 			}
 		}
 
